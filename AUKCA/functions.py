@@ -136,3 +136,37 @@ def view_item(user,item_index):
         element_index = 0
         conDB.close()
         return user_items[item_index][element_index]
+    
+    #wyświetlanie własnych licytacji
+
+def show_my_item(user,item_index):
+
+    user_id = user.get_id()
+    user_items = []
+
+    conDB = sqlite3.connect('DB_APC.db')
+    cur = conDB.cursor()
+    query = "SELECT ID, ITEM_TYPE, WEIGHT, CPU, GPU, COST, LAST_CALL " \
+                   "FROM Items " \
+                   "WHERE OWNED_BY = ?"
+
+    for item_info in cur.execute(query,[user_id]):
+        user_items.append(item_info)
+
+    print("____________________________________________")
+    print("********** twoje aukcje komputerowe ******************\n")
+
+    for element_index in range(1):
+        try:
+            print("Typ: ", user_items[item_index][1])
+            print("Waga: ", user_items[item_index][2],"kg")
+            print("Procesor: ", user_items[item_index][3])
+            print("Karta graficzna: ", user_items[item_index][4])
+            print("Cena: ", user_items[item_index][5], "PLN")
+            print("Najwyższa licytacja: ", user_items[item_index][6], "PLN")
+        except IndexError:
+            return 0
+
+        element_index = 0
+        conDB.close()
+        return user_items[item_index][element_index]
