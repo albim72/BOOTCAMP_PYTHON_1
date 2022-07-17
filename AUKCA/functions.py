@@ -70,3 +70,35 @@ def call_item(user,id_item):
     else:
         print("Musisz przebić ofertę")
     conDB.close()
+
+    #Dodawanie nowego produktu do aukcji
+
+def sell_item(user):
+    device_dict = {
+        'd_type':'',
+        'weight':'',
+        'cpu':'',
+        'gpu':'',
+        'cost':''
+    }
+    #wprowadzenie nowego urządzenia
+    try:
+        d_type = input("Wprowadź typ urządzenia: ")
+        cpu = input("Wprowadź nazwę procesora: ")
+        gpu = input("Wprowadź nazwę karty graficznej: ")
+        weight = int(input("Wprowadź wagę urządzenia w kg: "))
+        cost = int(input("Wprowadź cenę towaru w pln: "))
+    except ValueError:
+        print('zła wartość w polu, spróbuj ponownie...')
+        return 0
+
+    new_device = Device(d_type,weight,cpu,gpu,cost,user.user_id())
+
+    conDB = sqlite3.connect('DB_APC.db')
+    cur = conDB.cursor()
+
+    cur.execute("INSERT INTO Items (ITEM_TYPE, WEIGHT, CPU, GPU, COST, OWNED_BY) "
+                "VALUES (?,?,?,?,?,?)",(new_device.item_type, new_device.weight,new_device.cpu,
+                                        new_device.gpu, new_device.get_cost(),new_device.get_owner()))
+    conDB.commit()
+    conDB.close()
