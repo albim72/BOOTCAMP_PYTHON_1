@@ -33,3 +33,40 @@ def buy_item(user,id_item):
     conDB.commit()
     conDB.close()
     return 0
+
+
+
+    conDB.commit()
+    conDB.close()
+    return 0
+
+#aktualizacja licytacji -> podanie nowej kwoty i nowego licytującego,
+#Uwaga! nie możesz sam przebić siebie....
+
+def call_item(user,id_item):
+    conDB = sqlite3.connect('DB_APC.db')
+    cur = conDB.cursor()
+    query = "SELECT ID, LAST_CALL, LAST_CALLER" \
+                  "FROM Items " \
+                  "WHERE ID = ?"
+
+    called_item = []
+    for item_info in cur.execute(query,[id_item]):
+        called_item.append(item_info)
+
+    my_call = int(input("Zalicytuj!\n"))
+
+    #aktualizacja wartości w bazie: last_call oraz user, warunek: kwota jest wyższa od aktulanej a user inny
+    if my_call > called_item[0][1]:
+        if user.get_id() != called_item[0][2]:
+
+            query_update = "UPDATE Items " \
+                           "SET LAST_CALL = ?, LAST_CALLER = ?" \
+                           "WHERE ID = ?"
+            cur.execute(query_update,(my_call, user.user_id(),id_item))
+            conDB.commit()
+        else:
+            print("Nie możesz przebićc swojej licytacji")
+    else:
+        print("Musisz przebić ofertę")
+    conDB.close()
