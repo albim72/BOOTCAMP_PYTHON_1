@@ -37,3 +37,61 @@ def login_view(user):
                 bool_logged_user = False
         except ValueError:
             pass
+        
+        def auction_view(user):
+    running = True
+    item_index = 0
+
+    while running:
+        id_item = view_item(user,item_index)
+        try:
+            menu_my_auctions = int(input("Wybierz akcję: "
+                             "\n1 Kup"
+                             "\n2 Zalicytuj"
+                             "\n3 Następna aukcja"
+                             "\n4 Wyjdź\n"))
+
+            if menu_my_auctions == 1:
+                buy_item(user,id_item)
+            elif menu_my_auctions == 2:
+                call_item(user,id_item)
+            elif menu_my_auctions == 3:
+                if id_item !=0:
+                    item_index += 1
+                else:
+                    item_index = 0
+                    print("to był ostatni przedmiot!")
+            elif menu_my_auctions == 4:
+                running = False
+
+        except ValueError:
+            pass
+
+
+def my_auctions(user):
+    running = True
+    item_index = 0
+
+    while running:
+        id_item = show_my_item(user,item_index)
+        try:
+            menu_my_auctions = int(input("Wybierz akcję: "
+                      "\n1 Zakończ aukcję"
+                      "\n2 Usuń aukcję"
+                      "\n3 Następna moja aukcja"
+                      "\n4 Wyjdź\n"))
+            if menu_my_auctions == 1:
+                end_auction(user,id_item)
+            elif menu_my_auctions == 2:
+                delete_auction(user,id_item)
+            elif menu_my_auctions == 3:
+                if id_item !=0:
+                    item_index += 1
+                else:
+                    item_index = 0
+                    print("to był ostatni przedmiot!")
+            elif menu_my_auctions == 4:
+                running = False
+
+        except ValueError:
+            pass
