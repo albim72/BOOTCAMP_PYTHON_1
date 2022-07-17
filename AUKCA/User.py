@@ -73,3 +73,11 @@ class User:
             
         print("logowanie poprawne...")
         return 0
+
+    #usuwanie konta
+    def delete_account(self):
+        cur = self.conDB.cursor()
+        cur.execute("DELETE FORM Users WHERE LOGIN = ?",[self.login])
+        self.conDB.commit()
+        print("profil usunięty!")
+        return 1
