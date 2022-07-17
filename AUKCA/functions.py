@@ -170,3 +170,7 @@ def show_my_item(user,item_index):
         element_index = 0
         conDB.close()
         return user_items[item_index][element_index]
+    
+    #kończenie aukcji... pobranie wpłaty, zmiana właściela przedmiotu, przekazanie pieniędzy od licytujacego
+def end_auction(user,id_item):
+    delete_auction(user,id_item)
