@@ -47,3 +47,29 @@ class User:
             cur.execute("UPDATE Users SET ACC_ACTIVE = 0 WHERE LOGIN=?",[self.login])
             self.conDB.commit()
         print("złe hasśło lub login!")
+    def login_to_app(self):
+
+        cur = self.conDB.cursor()
+
+        db_login_query = []
+        db_pass_query = []
+
+        for row_log in cur.execute("SELECT LOGIN FROM Users"):
+            db_login_query.append("".join(row_log))
+        if self.login not in db_login_query:
+            print(f"nie ma takiego użytkownika lub hasło jest niepoprawne... - {self.login}")
+            return 1
+
+        for row_pass in cur.execute("SELECT HASH_PASSWORD FROM Users WHERE LOGIN = ?",[self.login]):
+            db_pass_query.append("".join(row_pass))
+        if  self.password not in db_pass_query:
+            self.__incorrect_password()
+            return 2
+
+        for row_isActive in cur.execute("SELECT ACC_ACTIVE FROM Users WHERE LOGIN=?",[self.login]):
+            if row_isActive[0] != 1:
+                print(f"Konto: {self.login} jest zablokowane! Skontaktuj się z administratorem.")
+                return 3
+            
+        print("logowanie poprawne...")
+        return 0
