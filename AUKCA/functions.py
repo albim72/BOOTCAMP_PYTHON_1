@@ -174,3 +174,18 @@ def show_my_item(user,item_index):
     #kończenie aukcji... pobranie wpłaty, zmiana właściela przedmiotu, przekazanie pieniędzy od licytujacego
 def end_auction(user,id_item):
     delete_auction(user,id_item)
+#usunięcie aukcji
+def delete_auction(user,id_item):
+    user_id = user.get_id()
+    id_to_delete = id_item
+
+    conDB = sqlite3.connect('DB_APC.db')
+    cur = conDB.cursor()
+
+    query = "DELETE FROM Items " \
+            "WHERE ID = ? " \
+            "AND OWNED_BY = ?"
+
+    cur.execute(query, (id_to_delete, user))
+    conDB.commit()
+    conDB.close()
