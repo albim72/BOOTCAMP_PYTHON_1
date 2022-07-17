@@ -30,3 +30,7 @@ class User:
             return 0
         
         
+    #informacje o użytkowniku
+    
+    def logged_user_info(self):
+        print(f"użytkownik: {self.login}, hasło: {self.password}")
