@@ -1,0 +1,31 @@
+Jest to aplikacja która symuluje działanie aukcji.
+
+Dostępne funkcjonalności:
+> Rejestrowanie uzytkowników
+    - User musi mieć unikalny login/username
+> Logowanie w aplikacji
+    - By user mógł się zalogować, musi podać poprawny login i hasło
+    - Dodatkowo jego konto nie może być zablokowane, blokada następuje gdy user trzy razy wprowadzi nieprawidłowe hasło
+> Prowizoryczny "admin panel" (możliwość "odblokowania konta")
+> Edycja profilu użytkownika (zmiana loginu i hasła)
+    - Po zmianie jednego z parametrów następuje wylogowanie
+> Sprawdzenie wstrzystkich dostępnych i wystawionych aukcji
+    - User może podejrzeć parametry danego przedmiotu a następnie: kupić, zalicytować, zobaczyć kolejny przedmiot, albo wyjść z widoku.
+    - Kupienie przedmiotu, oznacza usunięcie go z bazy danych, a następnie zapisanie informacji przedmiotu w pliku .txt
+    - Zalicytowanie przedmiotu oznacza zmianę jego wartości pól
+> Wystawienie własnego przedmiotu na aukcję
+> Sprawdzenie wszystkic własnych przedmiotów na aukcji i użycie funkcji: zakończ aukcję, usuń przedmiot, zobacz następny
+    - Zakończ aukcję, oznacza usunięcie z bazy danych (w todo była funkcja portfela i wtedy zakończenie aukcji oznaczało zliczenie wartości z last_call i dodanie do portfela, ale deadline gonił)
+    - Usuń przedmiot oznacza usunięcie przedmiotu z bazy danych
+
+
+Techniczna strona:
+> Program uruchamia się poprzez główny plik - main.py
+> Struktura programu: main.py odpowiada za autoryzację użytkownika, po udanej autoryzacji program przekierowuje się na plik view_controller, gdzie wywołuje funkcjonalności z pliku "funcions"
+> Obiekty przedmiotów i Usera są odpowiedmio w plikach "A_DigidalDevices.py" i "User.py".
+> Baza danych to sqllite (plik DB_APC.db)
+
+
+Potrzebne importy do programu:
+import sqlite3
+import os
