@@ -81,3 +81,23 @@ class User:
         self.conDB.commit()
         print("profil usunięty!")
         return 1
+
+        def change_login(self,new_login):
+        cur = self.conDB.cursor()
+        cur.execute("UPDATE Users SET LOGIN = ? WHERE LOGIN = ?",(new_login,self.login))
+        self.conDB.commit()
+
+    def change_password(self,new_password):
+        cur = self.conDB.cursor()
+        cur.execute("UPDATE Users SET HASH_PASSWORD = ? WHERE LOGIN = ?",(new_password,self.login))
+        self.conDB.commit()
+
+    def get_id(self):
+        cur = self.conDB.cursor( )
+        user_id = ""
+        for user in cur.execute("SELECT ID FROM Users WHERE LOGIN =?",[self.login]):
+            user_id = user
+        return user_id[0]
+
+    def __del__(self):
+        self.conDB.close()
