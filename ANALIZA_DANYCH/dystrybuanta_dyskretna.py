@@ -5,47 +5,38 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-cases = [
-    None,
-    8,
-    (30,8),
-    [16,24,32],
-    [0,-1],
-    slice(200,200,3),
-    0.1,
-    0.4,
-    (0.2,0.4)
-]
+category_names  = ['absolutnie nie','nie','niezdecydowany','tak','absolutnie tak']
+results = {
+    "Pytanie 1":[10,15,17,32,26],
+    "Pytanie 2":[26,22,29,10,13],
+    "Pytanie 3":[35,37,7,2,19],
+    "Pytanie 4":[32,11,9,15,33],
+    "Pytanie 5":[21,29,5,5,40],
+    "Pytanie 6":[8,19,5,30,38]
+}
 
-delta = 0.11
-x = np.linspace(0,10-2*delta,200) + delta
-y = np.sin(x)+1.0 + delta
+def survey(results, category_names):
+    labels = list(results.keys())
+    data = np.array(list(results.values()))
+    data_cum = data.cumsum(axis=1)
+    category_colors = plt.colormaps['RdYlGn'](
+        np.linspace(0.15,0.85,data.shape[1]))
+    fig,ax = plt.subplots(figsize=(9.2,5))
+    ax.invert_yaxis()
+    ax.xaxis.set_visible(False)
+    ax.set_xlim(0,np.sum(data,axis=1).max())
 
-#kreślenie wykresu
-fig,axs = plt.subplots(3,3,figsize=(10,6), constrained_layout = True)
-for ax, markevery in zip(axs.flat, cases):
-    ax.set_title(f'wykres -> {markevery}')
-    ax.plot(x,y,'o',ls='-',ms=4,markevery = markevery)
+    for i,(colname,color) in enumerate(zip(category_names,category_colors)):
+        widths = data[:,i]
+        starts = data_cum[:,i]- widths
+        rects = ax.barh(labels,widths,left = starts, height = 0.5, label = colname, color=color)
 
-#kreślenie wykresu w skali logarytmicznej
-fig,axs = plt.subplots(3,3,figsize=(10,6), constrained_layout = True)
-for ax, markevery in zip(axs.flat, cases):
-    ax.set_title(f'wykres -> {markevery}')
-    ax.set_xscale('log')
-    ax.set_yscale('log')
-    ax.plot(x,y,'o',ls='-',ms=4,markevery = markevery)
+        r,g,b, _ = color
+        text_color = 'white' if r*g*b < 0.5 else 'darkgrey'
+        ax.bar_label(rects, label_type='center', color=text_color)
+    ax.legend(ncol=len(category_names), bbox_to_anchor=(0,1),loc='lower left', fontsize = 'small')
+    return fig,ax
 
-#kreślenie wykresu - w zakresie
-fig,axs = plt.subplots(3,3,figsize=(10,6), constrained_layout = True)
-for ax, markevery in zip(axs.flat, cases):
-    ax.set_title(f'wykres -> {markevery}')
-    ax.plot(x,y,'o',ls='-',ms=4,markevery = markevery)
-    ax.set_xlim((6,6.67))
-    ax.set_ylim((1.1,1.7))
-
-#kreślenie wykresu w układzie polarnym
-fig,axs = plt.subplots(3,3,figsize=(10,6), constrained_layout = True, subplot_kw={'projection':'polar'})
-for ax, markevery in zip(axs.flat, cases):
-    ax.set_title(f'wykres -> {markevery}')
-    ax.plot(x,y,'o',ls='-',ms=4,markevery = markevery)
+survey(results,category_names)
 plt.show()
+
