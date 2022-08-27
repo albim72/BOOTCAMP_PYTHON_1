@@ -1,3 +1,10 @@
+body {
+    color: darkgrey;
+    background-color: beige;
+    font-size: 16pt;
+}
+
+
 table {
     border: none;
 }
