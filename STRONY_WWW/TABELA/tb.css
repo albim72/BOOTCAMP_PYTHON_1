@@ -1,0 +1,12 @@
+table {
+    border: none;
+}
+
+thead th {
+    border-bottom: 2px solid #444;
+    width: 120px;
+}
+
+tfoot td {
+    border-top: 1px solid #444;
+}
