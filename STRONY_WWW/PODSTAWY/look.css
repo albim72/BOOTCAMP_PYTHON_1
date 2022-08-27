@@ -1,0 +1,32 @@
+/*
+        komentarz w stylu
+        druga....
+        */
+
+body {
+    font-size: 13pt;
+    color: darkgray;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: rgb(93, 206, 250);
+}
+
+p {
+    font-size: 12pt;
+    color: brown;
+}
+
+p.pinky {
+    color: pink;
+    font-size: 15pt;
+}
+
+.ekstra {
+    color: blue;
+    font-weight: bold;
+}
+
+#zielony {
+    color: darkgreen;
+    font-weight: bolder;
+    font-size: 16pt;
+}
