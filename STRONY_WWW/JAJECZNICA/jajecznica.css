@@ -4,3 +4,14 @@ body {
     font-size: 14pt;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+a {
+    color: cadetblue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: chocolate;
+    text-decoration: underline;
+    font-size: 16pt;
+}
