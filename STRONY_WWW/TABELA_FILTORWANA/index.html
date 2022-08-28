@@ -76,6 +76,16 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap-4.4.1.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#myInput').on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $('#myTable tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
