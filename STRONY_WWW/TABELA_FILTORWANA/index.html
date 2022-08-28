@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- body code goes here -->
+    <div class="container mt-3">
+        <h2>Tabela filtrowana....</h2>
+        <p>wpisz w okno frazę, po której chcesz filtrować zawartość tabeli</p>
+        <input type="text" class="form-control" id="myInput" placeholder="Szukaj....">
+        <br>
+        <table class="table table-bordered">
+            <thead>
+                <th>Imię</th>
+                <th>Nazwisko</th>
+                <th>E-mail</th>
+            </thead>
+            <tbody id="myTable">
+                <tr>
+                    <td>Jan</td>
+                    <td>Kos</td>
+                    <td>janekkos@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Janek</td>
+                    <td>Klos</td>
+                    <td>janekklos@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Janina</td>
+                    <td>Kosicka</td>
+                    <td>janinak@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Juliusz</td>
+                    <td>Nowik</td>
+                    <td>julek@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Olga</td>
+                    <td>Opania</td>
+                    <td>oopania@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Nina</td>
+                    <td>Kos</td>
+                    <td>janekkos@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Nina</td>
+                    <td>Nowak</td>
+                    <td>nowak@firma.pl</td>
+                </tr>
+                <tr>
+                    <td>Olaf</td>
+                    <td>Strug</td>
+                    <td>olstrug@firma.pl</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+</body>
+
+</html>
