@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Untitled Document</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.4.1.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- body code goes here -->
+
+    <div class="container">
+        <h2>Prosty formularz bootstrap</h2>
+        <form action="#">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" name="email" id="email" class="form-control" placeholder="podaj adres e-mail...">
+            </div>
+            <div class="form-group">
+                <label for="pswd">Hasło:</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="podaj hasło...">
+            </div>
+            <div class="form-group">
+                <label for="sel1">Miasto(wybierz jedno):</label>
+                <select name="miasto" id="miasto" class="form-control">
+					<option value="Kraków">Kraków</option>
+					<option value="Toruń">Toruń</option>
+					<option value="Gdańsk">Gdańsk</option>
+					<option value="Lublin">Lublin</option>
+					<option value="Zakopane">Zakopane</option>
+				</select>
+            </div>
+            <div class="form-group">
+                <label for="sel2">Transport(wyierz jedną lub wiele opcji):</label>
+                <select name="miasto" id="miasto" class="form-control" multiple>
+					<option value="Taxi">Taxi</option>
+					<option value="Autobus">Autobus</option>
+					<option value="Pociąg">Pociąg</option>
+					<option value="Rower">Rower</option>
+					<option value="Hulajnoga">Hulajnoga</option>
+				</select>
+            </div>
+            <div class="form-group form-check">
+                <label class="from-check-label">
+					<input type="checkbox" name="remember" id="remember" 
+					class="form-check-input">Zapamiętaj ustawienia
+				</label>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Wyślij</button>
+        </form>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.4.1.js"></script>
+</body>
+
+</html>
