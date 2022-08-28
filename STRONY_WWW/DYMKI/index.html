@@ -24,6 +24,14 @@
         <a href="#" data-toggle="tooltip" data-placement="left" title="Super Ekstra!">Left</a>
         <a href="#" data-toggle="tooltip" data-placement="right" title="Super Ekstra!">Right</a>
     </div>
+
+    <br>
+
+    <div class="container">
+        <h3>Popover</h3>
+        <a href="#" data-toggle="popover" title="Nagłówek Popover" data-content="Zawartość okna popover" class="btn btn-dark">Uruchom popover</a>
+    </div>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-3.4.1.min.js"></script>
 
@@ -33,6 +41,11 @@
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover();
         });
     </script>
 </body>
