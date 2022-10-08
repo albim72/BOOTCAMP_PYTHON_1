@@ -43,3 +43,41 @@ def open_rate_with_factor_change(period_rng,fac):
         num_opened[t] = 0
     return num_opened
 
+def increasing_open_rate(period_rng):
+    return open_rate_with_factor_change(period_rng, np.random.uniform(1.01,1.30))
+
+def decreasing_open_rate(period_rng):
+    return open_rate_with_factor_change(period_rng, np.random.uniform(0.5,0.99))
+
+def random_weekly_time_delta():
+    days_of_week = [d for d in range(7)]
+    hours_of_day = [h for h in range(11,23)]
+    minute_of_hour = [m for m in range(60)]
+    second_of_minute = [s for s in range(60)]
+
+    return pd.Timedelta(str(np.random.choice(days_of_week)) + " days") + \
+            pd.Timedelta(str(np.random.choice(hours_of_day)) + " hours") + \
+            pd.Timedelta(str(np.random.choice(minute_of_hour)) + " minutes") + \
+            pd.Timedelta(str(np.random.choice(second_of_minute)) + " seconds")
+
+
+#zachowanie dotacji
+def produce_donations(period_rng,user_behavior,num_emails,use_id,user_join_year):
+    donation_amounts = np.array([0,25,50,75,100,250,500,1000,1500,2000])
+    user_has = np.random.choice(donation_amounts)
+    user_gives = num_emails/(NUM_EMAILS_SENT_WEEKLY*len(period_rng))*user_has
+    user_gives_idx = np.where(user_gives >= donation_amounts)[0][-1]
+    user_gives_idx = max(min(user_gives_idx,len(donation_amounts)-2),1)
+
+    num_times_gave = np.random.poisson(2)*(2020-user_join_year)
+    times = np.random.randint(0,len(period_rng),num_times_gave)
+
+    donations = pd.DataFrame({'user':[],'amount':[],'timestamp':[]})
+    for n in range(num_times_gave):
+        donations = donations.append(pd.DataFrame({'user':[use_id],
+                                                   'amount':[donation_amounts[user_gives_idx+np.random.binomial(1,.3)]],
+                                                   'timestamp':[str(period_rng[times[n]].start_time + random_weekly_time_delta())]}))
+    if donations.shape[0] > 0:
+        donations = donations[donations.amount != 0]
+    return donations
+                    
