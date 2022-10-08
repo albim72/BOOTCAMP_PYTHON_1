@@ -1,0 +1,36 @@
+#populacja wektorów 100 elementowych wypełnionych wartościami 0 i 1
+#celem jest utworzenie populacji wypełnionej jak największą liczbą jednynek,
+#sukcesem będzie osiągnięcie przynajmniej jedngo osobnika zawierającego  wszystkie 1
+#ile pokoloń potrzebujesz na wykonanie tego zadania?
+
+import random
+from deap import base
+from deap import creator
+from deap import tools
+
+creator.create("FitnessMax",base.Fitness,weights=(1.0,))
+creator.create("Individual",list,fitness=creator.FitnessMax)
+
+toolbox = base.Toolbox()
+
+toolbox.register("attr_bool",random.randint,0,1)
+#utworzenie osobnika populacji
+toolbox.register("individual",tools.initRepeat,creator.Individual, toolbox.attr_bool,100)
+
+#utworzenie populacji
+toolbox.register("population",tools.initRepeat,list,toolbox.individual)
+
+def evalOneMax(individual):
+    return sum(individual),
+
+#proces ewaluacji
+toolbox.register("evaluate",evalOneMax)
+
+#operator krzyżowania
+toolbox.register("mate",tools.cxTwoPoint)
+
+#operator mutacji
+toolbox.register("mutate",tools.mutFlipBit,indpb=0.05)
+
+#operator selekcji -> selekcja turniejowa
+toolbox.register("select",tools.selTournament,tournsize=3)
