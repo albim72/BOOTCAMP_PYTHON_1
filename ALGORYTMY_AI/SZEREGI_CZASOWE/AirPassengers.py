@@ -7,6 +7,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.tsa.seasonal import seasonal_decompose
+from scipy import signal
 
 
 #przygotowanie zbioru danych
@@ -45,4 +46,28 @@ additive_decomposition.plot().suptitle('Kompozycja Addytywna',fontsize=16)
 plt.tight_layout(rect=[0,0.03,1,0.95])
 
 plt.show()
+
+rand_numbers = np.random.randn(1000)
+pd.Series(rand_numbers).plot(title="Losowy Biały Szum", color='b')
+plt.tight_layout()
+plt.show()
+
+#usuwanie trendu
+
+detrended = signal.detrend(df['Number of Passengers'].values)
+plt.plot(detrended)
+plt.title('Pasażerowie linii lotnicznych z usuniętym trendem [metodą najmniejszych kwadratów]', fontsize =16)
+plt.show()
+
+#usunięcie sezonowości (desezonalizacja)
+
+result_mul = seasonal_decompose(df['Number of Passengers'], model='multiplicative', period=30)
+
+deseasonalized =  df['Number of Passengers'].values/result_mul.seasonal
+
+plt.plot(deseasonalized)
+plt.title('Psażerowie - z usuniętą sezonowością', fontsize = 16)
+plt.show()
+
+#testowanie sezonowości
 
