@@ -33,6 +33,40 @@ def open_rate_with_factor_change(period_rng,fac):
     times =  np.random.randint(0,len(period_rng),int(0.1*len(period_rng)))
     try:
         n, p = NUM_EMAILS_SENT_WEEKLY, np.random.uniform(0, 1)
+        
+        
+#robimy symulację!!!
+
+behaviours = [never_opens,constant_open_rate,increasing_open_rate,decreasing_open_rate]
+user_behaviors = np.random.choice(behaviours,1000,[0.2,0.5,0.1,0.2])
+
+rng = pd.period_range('2016-02-10','2020-12-20',freq='W')
+emails = pd.DataFrame({'user':[],'week':[],'emailsOpened':[]})
+donations = pd.DataFrame({'user':[],'amount':[],'timestamp':[]})
+
+for idx in range(yearJoined.shape[0]):
+    join_date = pd.Timestamp(yearJoined.iloc[idx].yearJoined) + \
+        pd.Timedelta(str(np.random.randint(0,365))+'days')
+    join_date = min(join_date,pd.Timestamp('2020-12-20'))
+    user_rng = rng[rng.start_time>join_date]
+
+    if len(user_rng)<1:
+        continue
+
+    info = user_behaviors[idx](user_rng)
+    if len(info) == len(user_rng):
+        emails = emails.append(pd.DataFrame({'user':[idx],
+                                             'week':[str(r.start_time) for r in user_rng],
+                                             'emailsOpened':info}))
+    donations = donations.append(produce_donations(user_rng,user_behaviors[idx],join_date.year))
+
+emails = emails[emails.emailsOpened != 0]
+yearJoined.index.name = 'user'
+
+yearJoined.to_csv('data/year_joined.csv', index=False)
+donations.to_csv('data/donations.csv', index=False)
+emails.to_csv('data/emails.csv', index=False)
+
         num_opened = np.zeros(len(period_rng))
         for pd in range(0,len(period_rng),2):
             num_opened[pd:(pd+2)] = np.random.binomial(n,p,2)
