@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.tsa.seasonal import seasonal_decompose
 from scipy import signal
-
+from pandas.plotting import autocorrelation_plot
 
 #przygotowanie zbioru danych
 path = 'AirPassengers.csv'
@@ -70,4 +70,7 @@ plt.title('Psażerowie - z usuniętą sezonowością', fontsize = 16)
 plt.show()
 
 #testowanie sezonowości
+plt.rcParams.update({'figure.figsize':(10,6),'figure.dpi':120})
+autocorrelation_plot(df['Number of Passengers'].tolist())
 
+plt.show()
